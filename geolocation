@@ -1,0 +1,59 @@
+#!/bin/bash
+
+##############################
+# https://t.me/EvilMasterBoy #
+##############################
+# copy right 2023            #
+##############################
+
+br="\033[91m"
+bg="\033[92m"
+by="\033[93m"
+bb="\033[94m"
+bp="\033[95m"
+bc="\033[96m"
+re="\033[00m"
+bl="\033[5m"
+net(){
+	sts=$(curl -Is https://www.google.com | grep "HTTP" | cut -d " " -f 2)
+	if [[ $sts == 200 ]]; then
+    	status="${bg}success"
+	elif [[ $sts == 202 ]]; then
+    	status="${bg}success"
+	else
+  		status="${br}failed"
+	fi
+}
+logo(){
+echo -e "
+${bl}${br}██╗     ██╗   ██╗ ██████╗ █████╗ ███████╗${re}
+${bl}${br}██║     ██║   ██║██╔════╝██╔══██╗██╔════╝${re}
+${bl}${br}██║     ██║   ██║██║     ███████║███████╗${re}
+${bl}${br}██║     ██║   ██║██║     ██╔══██║╚════██║${re}
+${bl}${br}███████╗╚██████╔╝╚██████╗██║  ██║███████║${re}
+${bl}${br}╚══════╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝╚══════╝${re}
+
+${bb}NETWORK STATUS ${by}=${bb} $status                 ${re}
+${bb}DEVELOPER      ${by}=${bb} ${br}LUCAS                   ${re}
+${bb}CHANNEL LINK   ${by}=${bb} ${bc}\e[4mhttps://t.me/FSociety_MM${re}
+"
+}
+loc(){
+	info=$(curl -s http://ip-api.com/json/$1)
+	printf "${by}Status       ${bp}: ${bg}"; echo $info | jq -r ".status" 
+	printf "${by}Query        ${bp}: ${bg}"; echo $info | jq -r ".query" 
+	printf "${by}Country      ${bp}: ${bg}"; echo $info | jq -r ".country" 
+	printf "${by}Country code ${bp}: ${bg}"; echo $info | jq -r ".countryCode" 
+	printf "${by}Region name  ${bp}: ${bg}"; echo $info | jq -r ".regionName" 
+	printf "${by}City         ${bp}: ${bg}"; echo $info | jq -r ".city" 
+	printf "${by}Zip          ${bp}: ${bg}"; echo $info | jq -r ".zip" 
+	printf "${by}Lat          ${bp}: ${bg}"; echo $info | jq -r ".lat" 
+	printf "${by}Lon          ${bp}: ${bg}"; echo $info | jq -r ".lon" 
+	printf "${by}Timezone     ${bp}: ${bg}"; echo $info | jq -r ".timezone" 
+	printf "${by}Isp          ${bp}: ${bg}"; echo $info | jq -r ".isp" 
+	printf "${by}Org          ${bp}: ${bg}"; echo $info | jq -r ".org" 
+	printf "${by}As           ${bp}: ${bg}"; echo $info | jq -r ".as"
+}
+net
+logo
+loc $1
